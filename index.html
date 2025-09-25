@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vicentinos — Serviços</title>
+  <meta name="description" content="Serviços sociais e espiritualidade — cadastro de famílias, abertura de depósito e login de membros">
+        
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_home.css">
+</head>
+<body>
+    
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div> <img src="imagens/brasao-paroquia1.png" alt="brasao da paroquia"> </div>
+        <div>
+          <div style="font-weight:700">Paroquia: Nossa Senhora de Fátima - Vicentinos</div>
+          <div style="font-size:13px;color:var(--muted)">Serviço de assistência e espiritualidade</div>
+        </div>
+      </div>
+
+      <nav aria-label="menu principal">
+        <a href="#contato">Contato</a>
+        <a href="#" id="abrirLogin">Login</a>
+        <a href="/deposito.html">deposito</a>
+      </nav>
+    </header>
+
+    <section class="hero" role="region" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title">Acolhimento, dignidade e fé — serviços dos Vicentinos</h1>
+        <p class="lead">Trabalhamos com assistência social às famílias em situação de vulnerabilidade e promovemos atividades de espiritualidade e apoio comunitário. Saiba como participar ou encaminhar uma família.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/familia.html" title="Cadastro de família">Cadastrar família</a>
+        </div>
+      </div>
+    </section>
+
+    <main>
+      <section id="servicos" class="cards" aria-labelledby="servicos-title">
+        <div class="card">
+          <h3 id="servicos-title">Assistência social</h3>
+          <p>Atendemos famílias com cestas básicas e acompanhamento familiar. O objetivo é restaurar a dignidade e oferecer suporte prático.</p>
+          <p style="margin-top:12px"><strong>Como encaminhar:</strong> preencha o formulário de cadastro da família e aguarde contato.</p>
+        </div>
+
+        <div class="card" id="espiritualidade">
+          <h3>Espiritualidade e acompanhamento</h3>
+          <p>São Vicente de Paulo (1581–1660) foi um sacerdote francês conhecido como o “pai dos pobres” e fundador da Congregação da Missão e das Filhas da Caridade. Sua vida foi marcada pelo serviço aos necessitados e pela organização da caridade de forma prática e estruturada.</p>
+          <p>O trabalho dos Vicentinos hoje segue esse carisma: visitas às famílias, apoio espiritual, momentos de oração comunitária e promoção da dignidade humana. A espiritualidade vicentina une fé e ação, sempre em favor dos mais vulneráveis.</p>
+        </div>
+
+        <div class="card">
+          <h3>Doações e depósito</h3>
+          <p>Nosso depósito recebe doações de alimentos e itens de higiene. As doações são separadas, organizadas e distribuídas conforme a necessidade das famílias atendidas.</p>
+          <p style="margin-top:12px"><a href="/abertura-deposito.html" class="pill">Abrir depósito / Doar</a></p>
+        </div>
+
+        <div class="card contact" id="contato">
+          <h3>Contato e voluntariado</h3>
+          <p class="muted">Quer ajudar ou tem dúvidas? Entre em contato.</p>
+          <p style="margin:0"><strong>Telefone:</strong> (xx) xxxx-xxxx</p>
+          <p style="margin:0"><strong>E-mail:</strong> contato@vicentinos.org.br</p>
+          <p style="margin:0">Endereço do depósito: Rua Exemplo, 123 — Bairro</p>
+          <div style="margin-top:12px">
+            <a class="btn btn-outline" href="/voluntario.html">Informar interesse em voluntariado</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="grid-column:1/-1">
+        <h3>Informações importantes</h3>
+        <ul style="margin:8px 0 0 18px;color:var(--muted)">
+          <li>Atendimentos são agendados conforme disponibilidade — priorizamos casos de maior vulnerabilidade.</li>
+          <li>Para doações, favor conferir validade e estado dos produtos.</li>
+          <li>Se precisar de urgência, ligue para o número informado acima.</li>
+        </ul>
+
+        <div class="cards-controls">
+          <button id="prev">&lt;</button>
+          <button id="next">&gt;</button>
+        </div>
+
+      </section>
+    </main>
+
+    <!-- Modal de Login -->
+    <div id="login" class="modal">
+      <div class="modal-content">
+        <h2>Login</h2>
+        <form class="login-form">
+          <label for="usuario">Usuário</label>
+          <input type="text" id="usuario" required>
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" required>
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+        <button id="fecharLogin" class="btn btn-outline">Fechar</button>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="ano"></span> Vicentinos — Todos os direitos reservados
+    </footer>
+  </div>
+
+  <!-- JavaScript para abrir/fechar modal -->
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    const abrirLogin = document.getElementById("abrirLogin");
+    const fecharLogin = document.getElementById("fecharLogin");
+    const modal = document.getElementById("login");
+
+    abrirLogin.addEventListener("click", function(e) {
+      e.preventDefault();
+      modal.style.display = "flex";
+    });
+
+    fecharLogin.addEventListener("click", function() {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });    
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Pns Fatima - Vicentinos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <h1>Deposito de Alimento</h1>
+    <img src="imagens/brasao-paroquia.png" alt="brasao-paroquia">
+    <nav>
+      <a href="/index.html">Voltar</a>
+      <a href="/cesta.html">Montar cesta basica</a>
+      <a href="familia.html">Familias</a>
+    </nav>
+  </header>
+
+  <!-- Área principal -->
+  <main>
+    <!-- Formulário de cadastro -->
+    <section id="form-section">
+      <h2>Adicionar no Deposito</h2>
+      
+      <form id="alimento-form">
+            <input type="text" id="nome" name="nome" placeholder="Nome do alimento" required>
+            <input type="text" id="tipo" name="tipo" placeholder="Tipo do Alimento" required>
+            <input type="text" id="marca" name="marca" placeholder="Marca">
+            <button type="submit">Salvar</button>
+      </form>
+    </section>
+
+        
+
+  <section id="list-section">
+      <h2>Lista de Alimentos</h2>
+
+      <input type="text" id="filtro-alimento" placeholder="Filtrar por nome..." style="margin-bottom:1rem;padding:0.5rem;width:100%;max-width:300px;">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Quantidade</th>
+          </tr>
+        </thead>
+        <tbody id="alimento-table-body">
+          <!-- JS vai preencher aqui -->
+        </tbody>
+      </table>
+  </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

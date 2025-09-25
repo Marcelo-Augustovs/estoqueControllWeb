@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cestas — Vicentinos</title>
+  <link rel="stylesheet" href="style_home.css">
+  <link rel="stylesheet" href="cestas.css">
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div><img src="imagens/brasao-paroquia1.png" alt="brasao da paroquia"></div>
+        <div>
+          <div style="font-weight:700">Paróquia: Nossa Senhora de Fátima - Vicentinos</div>
+          <div style="font-size:13px;color:var(--muted)">Serviço de assistência e espiritualidade</div>
+        </div>
+      </div>
+
+      <nav aria-label="menu principal">
+        <a href="index.html">Home</a>
+        <a href="familia.html">Famílias</a>
+        <a href="deposito.html">deposito</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Criar cesta -->
+      <section class="card" style="grid-column:1/-1">
+        <h2>Cestas básicas</h2>
+        <form id="cesta-form">
+          <input type="hidden" id="mes" name="mes">
+          <button type="submit" class="btn btn-primary">Adicionar</button>
+        </form>
+      </section>
+
+      <!-- Lista de cestas -->
+      <section class="cards" id="cesta-list" aria-labelledby="cestas-title">
+        <h2 id="cestas-title" style="grid-column:1/-1;margin-bottom:12px">Cestas Disponíveis</h2>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="ano"></span> Vicentinos — Todos os direitos reservados
+    </footer>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="cestas.js"></script>
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+    document.getElementById('mes').value = new Date().getMonth() + 1;
+  </script>
+</body>
+</html>
