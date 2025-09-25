@@ -1,11 +1,20 @@
-const form = document.getElementById("alimento-form");
-const tableBody = document.getElementById("alimento-table-body");
+// ==============================
+// ELEMENTOS DO DOM
+// ==============================
+const form = document.getElementById("alimento-form");     // cadastro de alimentos
+const tableBody = document.getElementById("alimento-table-body"); // tabela de alimentos
+const filtroInput = document.getElementById("filtro-alimento");   // Input para filtro por nome
 
-const API_URL = "http://localhost:8080/api/v1/alimento"; // ajuste para o endpoint do seu back
-const DEPOSITO_URL = "http://localhost:8080/api/v1/deposito/1";
+// URLs da API
+const API_URL = "http://localhost:8080/api/v1/alimento";         
+const DEPOSITO_URL = "http://localhost:8080/api/v1/deposito/1"; 
 
-// Buscar lista de alimentos ao carregar a página
-const filtroInput = document.getElementById("filtro-alimento"); // input criado no HTML
+
+// ==============================
+// FUNÇÃO PARA CARREGAR ALIMENTOS
+// ==============================
+
+let gruposAlimentos = {}; 
 
 async function carregarAlimentos() {
   try {
@@ -14,67 +23,14 @@ async function carregarAlimentos() {
     const alimentos = Array.isArray(deposito.alimentos) ? deposito.alimentos : [];
 
     // Agrupar por nome
-    const grupos = {};
+    gruposAlimentos = {};
     alimentos.forEach(a => {
       const nome = a.nome.toLowerCase();
-      if (!grupos[nome]) {
-        grupos[nome] = [a];
-      } else {
-        grupos[nome].push(a);
-      }
+      if (!gruposAlimentos[nome]) gruposAlimentos[nome] = [];
+      gruposAlimentos[nome].push(a);
     });
 
-    // Aplicar filtro
-    const filtro = filtroInput ? filtroInput.value.toLowerCase() : "";
-    const nomesFiltrados = Object.keys(grupos).filter(nome => nome.includes(filtro));
-
-    // Renderizar tabela
-    tableBody.innerHTML = "";
-    if (nomesFiltrados.length === 0) {
-      tableBody.innerHTML = "<tr><td colspan='4'>Nenhum alimento encontrado.</td></tr>";
-      return;
-    }
-
-    nomesFiltrados.forEach(nome => {
-      const grupo = grupos[nome];
-
-      // Linha principal resumida
-      const mainRow = document.createElement("tr");
-      mainRow.className = "grupo-resumido";
-      mainRow.style.cursor = "pointer";
-      mainRow.innerHTML = `
-        <td>${grupo[0].nome}</td>
-        <td>${grupo[0].tipoDoAlimento}</td>
-        <td>${grupo[0].marca}</td>
-        <td>${grupo.length}</td>
-      `;
-
-      // Adiciona evento de click para expandir/colapsar detalhes
-      mainRow.addEventListener("click", () => {
-        const expanded = mainRow.nextElementSibling && mainRow.nextElementSibling.classList.contains("detalhes-grupo");
-        if (expanded) {
-          // Remove linhas de detalhes
-          while (mainRow.nextElementSibling && mainRow.nextElementSibling.classList.contains("detalhes-grupo")) {
-            tableBody.removeChild(mainRow.nextElementSibling);
-          }
-        } else {
-          // Adiciona linhas de detalhes
-          grupo.forEach(alimento => {
-            const detailRow = document.createElement("tr");
-            detailRow.className = "detalhes-grupo";
-            detailRow.innerHTML = `
-              <td colspan="1" style="padding-left:2rem;">ID: ${alimento.id}</td>
-              <td>${alimento.tipoDoAlimento}</td>
-              <td>${alimento.marca}</td>
-              <td>Data: ${alimento.dataCriacao}</td>
-            `;
-            tableBody.insertBefore(detailRow, mainRow.nextSibling);
-          });
-        }
-      });
-
-      tableBody.appendChild(mainRow);
-    });
+    renderizarTabela(Object.keys(gruposAlimentos));
 
   } catch (error) {
     console.error("Erro ao carregar alimentos:", error);
@@ -82,11 +38,81 @@ async function carregarAlimentos() {
   }
 }
 
+// ==============================
+// FUNÇÃO PARA RENDERIZAR TABELA
+// ==============================
+function renderizarTabela(nomesFiltrados) {
+  tableBody.innerHTML = ""; // limpa a tabela
 
+  if (nomesFiltrados.length === 0) {
+    tableBody.innerHTML = "<tr><td colspan='4'>Nenhum alimento encontrado.</td></tr>";
+    return;
+  }
 
-// Enviar novo alimento
+  nomesFiltrados.forEach(nome => {
+    const grupo = gruposAlimentos[nome];
+
+    const mainRow = document.createElement("tr");
+    mainRow.className = "grupo-resumido";
+    mainRow.style.cursor = "pointer";
+    mainRow.innerHTML = `
+      <td>${grupo[0].nome}</td>
+      <td>${grupo[0].tipoDoAlimento}</td>
+      <td>${grupo[0].marca}</td>
+      <td>${grupo.length}</td>
+    `;
+
+    mainRow.addEventListener("click", () => {
+      // Remove linhas de detalhes já existentes
+      let next = mainRow.nextElementSibling;
+      while (next && next.classList.contains("detalhes-grupo")) {
+        const tmp = next.nextElementSibling;
+        next.remove();
+        next = tmp;
+      }
+
+      // Se não estava expandido, adiciona detalhes
+      if (!mainRow.dataset.expanded) {
+        grupo.forEach(alimento => {
+          const detailRow = document.createElement("tr");
+          detailRow.className = "detalhes-grupo";
+          detailRow.innerHTML = `
+            <td colspan="1" style="padding-left:2rem;">ID: ${alimento.id}</td>
+            <td>${alimento.tipoDoAlimento}</td>
+            <td>${alimento.marca}</td>
+            <td>Data: ${alimento.dataCriacao}</td>
+          `;
+          mainRow.after(detailRow);
+        });
+        mainRow.dataset.expanded = "true";
+      } else {
+        delete mainRow.dataset.expanded;
+      }
+    });
+
+    tableBody.appendChild(mainRow);
+  });
+}
+
+// ==============================
+// FILTRO EM TEMPO REAL
+// ==============================
+filtroInput.addEventListener("input", () => {
+  const filtro = filtroInput.value.toLowerCase();
+  const nomesFiltrados = Object.keys(gruposAlimentos).filter(nome => nome.includes(filtro));
+  renderizarTabela(nomesFiltrados);
+});
+
+// ==============================
+// CHAMADA INICIAL
+// ==============================
+carregarAlimentos();
+
+// ==============================
+// EVENTO PARA CADASTRAR NOVO ALIMENTO
+// ==============================
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // previne envio padrão do formulário
 
   const alimento = {
     nome: document.getElementById("nome").value,
@@ -100,20 +126,23 @@ form.addEventListener("submit", async (e) => {
     body: JSON.stringify(alimento)
   });
 
-  form.reset();
-  carregarAlimentos(); // atualiza a lista
+  form.reset();         // limpa o formulário
+  carregarAlimentos();  // atualiza lista de alimentos
 });
 
-// Inicializa carregando alimentos
+// Inicializa carregando alimentos ao abrir a página
 carregarAlimentos();
 
+// ==============================
+// ELEMENTOS DE FAMÍLIAS
+// ==============================
+const familiaList = document.getElementById("familia-list"); // container das famílias
+const formFamilia = document.getElementById("familia-form"); // formulário de cadastro
+const FAMILIA_URL = "http://localhost:8080/api/v1/familia"; // endpoint das famílias
 
-// familias
-const familiaList = document.getElementById("familia-list");
-const formFamilia = document.getElementById("familia-form");
-const FAMILIA_URL = "http://localhost:8080/api/v1/familia"; // ajuste para o seu backend
-
-// Função para carregar famílias
+// ==============================
+// FUNÇÃO PARA CARREGAR FAMÍLIAS
+// ==============================
 async function carregarFamilias() {
   try {
     const response = await fetch(FAMILIA_URL);
@@ -122,6 +151,7 @@ async function carregarFamilias() {
     // Limpa a lista antes de atualizar
     familiaList.innerHTML = '<h2 id="familias-title" style="grid-column:1/-1;margin-bottom:12px">Lista de Famílias</h2>';
 
+    // Cria card para cada família
     familias.forEach(familia => {
       const card = document.createElement("div");
       card.className = "card";
@@ -141,7 +171,9 @@ async function carregarFamilias() {
   }
 }
 
-// Evento para cadastrar nova família
+// ==============================
+// EVENTO PARA CADASTRAR NOVA FAMÍLIA
+// ==============================
 formFamilia.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -160,17 +192,13 @@ formFamilia.addEventListener("submit", async (e) => {
       body: JSON.stringify(novaFamilia)
     });
 
-    formFamilia.reset();           // limpa o formulário
-    carregarFamilias();     // atualiza a lista
+    formFamilia.reset();    // limpa formulário
+    carregarFamilias();     // atualiza lista
   } catch (error) {
     console.error("Erro ao cadastrar família:", error);
     alert("Não foi possível cadastrar a família. Tente novamente.");
   }
 });
 
-// Inicializa carregando as famílias
+// Inicializa carregando as famílias ao abrir a página
 carregarFamilias();
-
-
-//
-
