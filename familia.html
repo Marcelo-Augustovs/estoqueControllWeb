@@ -4,53 +4,64 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Famílias — Vicentinos</title>
-  <link rel="stylesheet" href="style_home.css">
+  <link rel="stylesheet" href="resources/css/familia.css">
 </head>
 <body>
+
   <div class="wrap">
     <header>
       <div class="brand">
         <div><img src="imagens/brasao-paroquia1.png" alt="brasao da paroquia"></div>
         <div>
           <div style="font-weight:700">Paroquia: Nossa Senhora de Fátima - Vicentinos</div>
-          <div style="font-size:13px;color:var(--muted)">Serviço de assistência e espiritualidade</div>
+          <div style="font-size:13px;color:var(--muted)">Um só coração e uma só alma</div>
         </div>
       </div>
 
       <nav aria-label="menu principal">
         <a href="index.html">Home</a>
-        <a href="familia.html">Famílias</a>
+        <a href="cesta.html">Cestas</a>
         <a href="deposito.html">Depósito</a>
       </nav>
     </header>
 
     <main>
       <!-- Formulário de cadastro -->
-      <section class="card" style="grid-column:1/-1">
+     <section class="card" style="grid-column:1/-1">
         <h2>Cadastrar Nova Família</h2>
         <form id="familia-form">
           <label for="nome">Nome da Família</label>
-          <input type="text" id="nome" required>
-          
-          <label for="responsavel">Responsável</label>
-          <input type="text" id="responsavel" required>
+          <input type="text" id="nome" name="nome" required placeholder="Digite o nome da família">
           
           <label for="endereco">Endereço</label>
-          <input type="text" id="endereco" required>
-          
-          <label for="telefone">Telefone</label>
-          <input type="text" id="telefone" required>
-          
-          <label for="observacoes">Observações</label>
-          <textarea id="observacoes" rows="3"></textarea>
+          <input type="text" id="endereco" name="endereco" required placeholder="Digite o endereço da família">
           
           <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>
       </section>
 
+
       <!-- Lista de famílias -->
-      <section class="cards" id="familia-list" aria-labelledby="familias-title">
-        <h2 id="familias-title" style="grid-column:1/-1;margin-bottom:12px">Lista de Famílias</h2>
+      <section id="familia-list">
+          <h2>Lista de Familias</h2>
+
+          <input type="text" id="filtro-familia" placeholder="Filtrar por nome..." style="margin-bottom:1rem;padding:0.5rem;width:100%;max-width:300px;">
+
+          <table>
+            <thead>
+              <tr>
+                <th>Nome Da Familia</th>
+                <th>Endereço</th>
+                <th>Telefone</th>
+                <th>Cestas</th>
+              </tr>
+            </thead>
+
+            <tbody id="familia-table-body">
+              <!-- JS -->
+            </tbody>
+
+          </table>
       </section>
     </main>
 
@@ -59,7 +70,7 @@
     </footer>
   </div>
 
-  <script src="familia.js"></script>
+  <script src="resources/js/familia.js"></script>
   <script>
     document.getElementById('ano').textContent = new Date().getFullYear();
   </script>

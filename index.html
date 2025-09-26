@@ -8,7 +8,7 @@
         
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style_home.css">
+  <link rel="stylesheet" href="resources/css/style_home.css">
 </head>
 <body>
     
@@ -18,28 +18,29 @@
         <div> <img src="imagens/brasao-paroquia1.png" alt="brasao da paroquia"> </div>
         <div>
           <div style="font-weight:700">Paroquia: Nossa Senhora de Fátima - Vicentinos</div>
-          <div style="font-size:13px;color:var(--muted)">Serviço de assistência e espiritualidade</div>
+          <div style="font-size:13px;color:var(--muted)">Um só coração e uma só alma </div>
         </div>
       </div>
 
       <nav aria-label="menu principal">
         <a href="#contato">Contato</a>
         <a href="#" id="abrirLogin">Login</a>
-        <a href="/deposito.html">deposito</a>
+        <a href="/deposito.html">Deposito</a>
       </nav>
     </header>
 
    <section class="hero" role="region" aria-labelledby="hero-title">
-  <div class="hero-inner">
-    <h1 id="hero-title">Acolhimento, dignidade e fé — serviços dos Vicentinos</h1>
+   
+    <div class="hero-inner">
+      <h1 id="hero-title">Acolhimento, dignidade e fé — serviços dos Vicentinos</h1>
 
-    <!-- Conteúdo que vai trocar -->
-    <div id="hero-content">
-      <div class="hero-slide">
-         <p class="lead">Trabalhamos com assistência social às famílias em situação de vulnerabilidade e promovemos atividades de espiritualidade e apoio comunitário. Saiba como participar ou encaminhar uma família.</p>
-        <div class="actions">
-          <a class="btn btn-primary" href="/familia.html" title="Cadastro de família">Cadastrar família</a>
-        </div>
+      <!-- Conteúdo que vai trocar -->
+      <div id="hero-content">
+        <div class="hero-slide">
+          <p class="lead">Trabalhamos com assistência social às famílias em situação de vulnerabilidade e promovemos atividades de espiritualidade e apoio comunitário. Saiba como participar ou encaminhar uma família.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/familia.html" title="Cadastro de família">Cadastrar família</a>
+          </div>
       </div>
 
 
@@ -58,15 +59,14 @@
       <div class="hero-slide">
         <h2>Doações e depósito</h2>
         <p>Nosso depósito recebe doações de alimentos e itens de higiene. As doações são separadas, organizadas e distribuídas conforme a necessidade das famílias atendidas.</p>
-        <p><a href="/abertura-deposito.html" class="pill">Abrir depósito / Doar</a></p>
+        <p><a href="/doacao.html" class="pill"> Doação </a></p>
       </div>
 
       <div class="hero-slide">
-        <h2>Contato e voluntariado</h2>
+        <h2 >Contato e voluntariado</h2>
         <p class="muted">Quer ajudar ou tem dúvidas? Entre em contato.</p>
-        <p><strong>Telefone:</strong> (xx) xxxx-xxxx</p>
-        <p><strong>E-mail:</strong> contato@vicentinos.org.br</p>
-        <p>Endereço do depósito: Rua Exemplo, 123 — Bairro</p>
+        <p><strong>Telefone:</strong> (21) xxxx-xxxx</p>
+        <p><strong>Endereço:</strong> Rua Darcy Bittencourt Costa, 150 — Olaria</p>
         <p><a class="btn btn-outline" href="/voluntario.html">Informar interesse em voluntariado</a></p>
       </div>
     </div>
@@ -76,34 +76,31 @@
       <button id="prev">&lt;</button>
       <button id="next">&gt;</button>
     </div>
-  </div>
-</section>
+    </div>
 
+   </section>
 
     <main>
-      <section id="servicos" class="cards" aria-labelledby="servicos-title">
-      
+      <section id="servicos" class="cards" aria-labelledby="servicos-title">      
 
       <section class="card" style="grid-column:1/-1">
         <h3>Informações importantes</h3>
         <ul style="margin:8px 0 0 18px;color:var(--muted)">
           <li>Atendimentos são agendados conforme disponibilidade — priorizamos casos de maior vulnerabilidade.</li>
           <li>Para doações, favor conferir validade e estado dos produtos.</li>
-          <li>Se precisar de urgência, ligue para o número informado acima.</li>
+          <li>Entre em contato com a nossa secretaria</li>
         </ul>
 
-        <div class="cards-controls">
-          <button id="prev">&lt;</button>
-          <button id="next">&gt;</button>
-        </div>
-
       </section>
+
     </main>
 
     <!-- Modal de Login -->
     <div id="login" class="modal">
       <div class="modal-content">
+        
         <h2>Login</h2>
+        
         <form class="login-form">
           <label for="usuario">Usuário</label>
           <input type="text" id="usuario" required>
@@ -111,7 +108,9 @@
           <input type="password" id="senha" required>
           <button type="submit" class="btn btn-primary">Entrar</button>
         </form>
-        <button id="fecharLogin" class="btn btn-outline">Fechar</button>
+        
+         <button id="fecharLogin" class="close-btn">&times;</button>
+      
       </div>
     </div>
 
@@ -124,58 +123,58 @@
   <script>
     document.getElementById('ano').textContent = new Date().getFullYear();
 
-  // ===== Modal Login =====
-  const abrirLogin = document.getElementById("abrirLogin");
-  const fecharLogin = document.getElementById("fecharLogin");
-  const modal = document.getElementById("login");
+    // ===== Modal Login =====
+    const abrirLogin = document.getElementById("abrirLogin");
+    const fecharLogin = document.getElementById("fecharLogin");
+    const modal = document.getElementById("login");
 
-  abrirLogin.addEventListener("click", function(e) {
-    e.preventDefault();
-    modal.style.display = "flex";
-  });
+    abrirLogin.addEventListener("click", function(e) {
+      e.preventDefault();
+      modal.style.display = "flex";
+    });
 
-  fecharLogin.addEventListener("click", function() {
-    modal.style.display = "none";
-  });
-
-  window.addEventListener("click", function(e) {
-    if (e.target === modal) {
+    fecharLogin.addEventListener("click", function() {
       modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(e) {
+      if (e.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // ===== Navegação entre cards =====
+    const slides = document.querySelectorAll("#hero-content .hero-slide");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    let currentIndex = 0;
+
+    function mostrarSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === index ? "block" : "none";
+      });
+
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
     }
-  });
 
-  // ===== Navegação entre cards =====
-  const slides = document.querySelectorAll("#hero-content .hero-slide");
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
+    prevBtn.addEventListener("click", () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        mostrarSlide(currentIndex);
+      }
+    });
 
-let currentIndex = 0;
+    nextBtn.addEventListener("click", () => {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        mostrarSlide(currentIndex);
+      }
+    });
 
-function mostrarSlide(index) {
-  slides.forEach((slide, i) => {
-    slide.style.display = i === index ? "block" : "none";
-  });
-
-  prevBtn.disabled = index === 0;
-  nextBtn.disabled = index === slides.length - 1;
-}
-
-prevBtn.addEventListener("click", () => {
-  if (currentIndex > 0) {
-    currentIndex--;
+    // Mostra o primeiro conteúdo ao carregar
     mostrarSlide(currentIndex);
-  }
-});
-
-nextBtn.addEventListener("click", () => {
-  if (currentIndex < slides.length - 1) {
-    currentIndex++;
-    mostrarSlide(currentIndex);
-  }
-});
-
-// Mostra o primeiro conteúdo ao carregar
-mostrarSlide(currentIndex);
 
   </script>
 </body>
