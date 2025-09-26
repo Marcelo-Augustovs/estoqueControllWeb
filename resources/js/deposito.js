@@ -78,9 +78,9 @@ function renderizarTabela(nomesFiltrados) {
           detailRow.className = "detalhes-grupo";
           detailRow.innerHTML = `
             <td colspan="1" style="padding-left:2rem;">ID: ${alimento.id}</td>
-            <td>${alimento.tipoDoAlimento}</td>
-            <td>${alimento.marca}</td>
-            <td>Data: ${alimento.dataCriacao}</td>
+            <td>Marca: ${alimento.marca}</td>
+            <td>Data do Registro: ${alimento.dataCriacao}</td>
+            <td>Validade: ${alimento.validade || "não informada"}</td>
           `;
           mainRow.after(detailRow);
         });
@@ -132,73 +132,3 @@ form.addEventListener("submit", async (e) => {
 
 // Inicializa carregando alimentos ao abrir a página
 carregarAlimentos();
-
-// ==============================
-// ELEMENTOS DE FAMÍLIAS
-// ==============================
-const familiaList = document.getElementById("familia-list"); // container das famílias
-const formFamilia = document.getElementById("familia-form"); // formulário de cadastro
-const FAMILIA_URL = "http://localhost:8080/api/v1/familia"; // endpoint das famílias
-
-// ==============================
-// FUNÇÃO PARA CARREGAR FAMÍLIAS
-// ==============================
-async function carregarFamilias() {
-  try {
-    const response = await fetch(FAMILIA_URL);
-    const familias = await response.json();
-
-    // Limpa a lista antes de atualizar
-    familiaList.innerHTML = '<h2 id="familias-title" style="grid-column:1/-1;margin-bottom:12px">Lista de Famílias</h2>';
-
-    // Cria card para cada família
-    familias.forEach(familia => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>${familia.nome}</h3>
-        <p><strong>Responsável:</strong> ${familia.responsavel}</p>
-        <p><strong>Endereço:</strong> ${familia.endereco}</p>
-        <p><strong>Telefone:</strong> ${familia.telefone}</p>
-        <p><strong>Observações:</strong> ${familia.observacoes || 'Nenhuma'}</p>
-      `;
-      familiaList.appendChild(card);
-    });
-
-  } catch (error) {
-    console.error("Erro ao carregar famílias:", error);
-    familiaList.innerHTML += "<p style='color:red;'>Não foi possível carregar a lista de famílias.</p>";
-  }
-}
-
-// ==============================
-// EVENTO PARA CADASTRAR NOVA FAMÍLIA
-// ==============================
-formFamilia.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const novaFamilia = {
-    nome: document.getElementById("nome").value,
-    responsavel: document.getElementById("responsavel").value,
-    endereco: document.getElementById("endereco").value,
-    telefone: document.getElementById("telefone").value,
-    observacoes: document.getElementById("observacoes").value
-  };
-
-  try {
-    await fetch(FAMILIA_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(novaFamilia)
-    });
-
-    formFamilia.reset();    // limpa formulário
-    carregarFamilias();     // atualiza lista
-  } catch (error) {
-    console.error("Erro ao cadastrar família:", error);
-    alert("Não foi possível cadastrar a família. Tente novamente.");
-  }
-});
-
-// Inicializa carregando as famílias ao abrir a página
-carregarFamilias();
