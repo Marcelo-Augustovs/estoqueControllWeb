@@ -1,0 +1,158 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.5;
+}
+
+header {
+  display: flex;
+  align-items: center;  /* alinha verticalmente título e imagem */
+  justify-content: space-between; /* mantém a nav à direita */
+  background: #2c3e50;
+  color: white;
+  padding: 1rem 2rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  margin-right: 1rem; /* espaço entre título e imagem */
+}
+
+header img {
+  max-height: 70px;  /* define altura máxima */
+  width: auto;       /* mantém proporção da imagem */
+  margin-left: 0.5rem;
+}
+
+header nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+nav a {
+  color: white;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+input, button {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+input:focus {
+  outline: none;
+  border-color: #2980b9;
+}
+
+button {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #1c5980;
+}
+
+/* Tabela */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+thead {
+  background-color: #2980b9;
+  color: white;
+}
+
+thead th {
+  padding: 0.8rem;
+  text-align: left;
+}
+
+tbody td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #dceefc;
+  transition: background 0.3s;
+}
+
+h2 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* Linha resumida do grupo */
+.grupo-resumido {
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.grupo-resumido:hover {
+  background-color: #d0f0c0; /* leve destaque ao passar o mouse */
+}
+
+/* Linhas detalhadas do grupo */
+.detalhes-grupo {
+  background-color: #d0f0c0; /* verde claro */
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.detalhes-grupo td {
+  padding-left: 1.5rem; /* recuo para diferenciar */
+}
+
+/* Hover nas linhas detalhadas */
+.detalhes-grupo:hover {
+  background-color: #b2e2a7; /* verde um pouco mais escuro ao passar o mouse */
+}
+
