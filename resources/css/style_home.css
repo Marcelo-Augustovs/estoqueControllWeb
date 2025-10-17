@@ -24,7 +24,8 @@ h1{
 
 body {
   margin: 0;
-  background: var(--bg) url("imagens/sao-vicente.png")  no-repeat center center fixed;
+  background-color: #D6E0EB;
+  
   background-size: cover; /* cobre toda a tela */
   color: #111;
   line-height: 1.5;
@@ -47,7 +48,7 @@ body::before {
   margin: 32px auto;
   padding: 24px;
   position: relative;
-  background: rgba(246, 247, 251, 0.4); /* camada clara para suavizar a imagem */
+  background: rgba(246, 247, 251, 0.65); /* camada clara para suavizar a imagem */
   z-index: 1;
 }
 

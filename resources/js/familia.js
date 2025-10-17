@@ -20,7 +20,7 @@ async function carregarFamilias() {
     const lista = Array.isArray(familias) ? familias : [];
 
     // agrupar por nome
-    listaDeFamilias = {}; // limpa antes
+    listaDeFamilias = {}; 
     lista.forEach(familia => {
       const nome = familia.nome.toLowerCase();
       if (!listaDeFamilias[nome]) 
@@ -54,8 +54,8 @@ formFamilia.addEventListener("submit", async (e) => {
       body: JSON.stringify(familiaDto)
     });
 
-    formFamilia.reset();    // limpa formulário
-    carregarFamilias();     // atualiza lista
+    formFamilia.reset();    
+    carregarFamilias();     
   } catch (error) {
     console.error("Erro ao cadastrar família:", error);
     alert("Não foi possível cadastrar a família. Tente novamente.");
@@ -83,7 +83,7 @@ function renderizarTabela(nomesFiltrados) {
       <td>${grupo[0].nome}</td>
       <td>${grupo[0].endereco}</td>
       <td>${grupo[0].telefone ||"não registrado"}</td>
-      <td>${grupo[0].cestaDoMesRecebido}</td>
+      <td>${grupo[0].cestaDoMesRecebido ? "recebido": "pendente"}</td>
     `;
 
     // expandir detalhes da família
@@ -100,8 +100,7 @@ function renderizarTabela(nomesFiltrados) {
           const detailRow = document.createElement("tr");
           detailRow.className = "detalhes-grupo";
           detailRow.innerHTML = `
-            <td colspan="3" style="padding-left:2rem;">
-              <strong>ID:</strong> ${familia.id} — 
+            <td colspan="4" style="padding-left:2rem;">
               <strong>Endereço:</strong> ${familia.endereco} — 
               <strong>Total de Cesta recebidas:</strong> ${familia.cestasRecebidas ? familia.cestasRecebidas.length : 0}
               — <strong>Data Registro:</strong> ${familia.dataCriacao}

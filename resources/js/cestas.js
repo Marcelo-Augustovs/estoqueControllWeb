@@ -43,6 +43,7 @@ const closeModal = document.querySelector(".close");
         <h3>Cesta #${cesta.id}</h3>
         <p><strong>Mês:</strong> ${cesta.mes}</p>
         <p><strong>Alimentos:</strong> ${cesta.quantidadeDeAlimentos || 0}</p>
+        <img src="imagens/cesta_basica.jpg" alt="Cesta Básica" class="cesta-img">
       `;
 
       card.addEventListener("click", () => {
@@ -61,6 +62,7 @@ const closeModal = document.querySelector(".close");
       <button id="guardarBtn">Guardar Alimento</button>
       <button id="entregarBtn">Entregar Cesta</button>
       <button id="adicionarBtn">Adicionar Alimento</button>
+      <button id="verAlimentosBtn">Ver Alimentos</button>
       <div id="formContainer"></div>
     `;
 
@@ -167,6 +169,36 @@ const closeModal = document.querySelector(".close");
         console.error(err);
       }
     });
+  });
+  // ======================== 
+  // BOTÃO VER ALIMENTOS
+  // ========================
+  document.getElementById("verAlimentosBtn").addEventListener("click", async () => {
+    const container = document.getElementById("formContainer");
+    container.innerHTML = "<p>Carregando alimentos...</p>";
+    try {
+      const response = await fetch(`${API_CESTAS}/${cesta.id}/alimentos`);
+      const alimentos = await response.json();
+
+      if (!alimentos || alimentos.length === 0) {
+        container.innerHTML = "<p>Nenhum alimento nesta cesta.</p>";
+        return;
+      }
+
+      let lista = "<ul>";
+      alimentos.forEach(alimento => {
+        lista += `<li>${alimento.nome} (${alimento.marca} - validade: ${alimento.validade || "não informada"})</li>`;
+      });
+      lista += "</ul>";
+
+      container.innerHTML = `
+        <h4>Alimentos na Cesta:</h4>
+        ${lista}
+      `;
+    } catch (err) {
+      console.error(err);
+      container.innerHTML = "<p style='color:red;'>Erro ao carregar alimentos da cesta.</p>";
+    }
   });
 }
 

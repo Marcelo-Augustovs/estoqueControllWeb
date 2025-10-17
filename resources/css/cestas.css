@@ -1,6 +1,7 @@
 body {
       font-family: Arial, sans-serif;
       background: #f8f9fa;
+      background-color: #E0E4E8;
       padding: 20px;
     }
 
@@ -12,11 +13,24 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: 0.3s;
+  
 }
 .card:hover {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
+.cesta-img {
+  position: relative;
+  margin-left: 50%;
+  margin-top: -25%;
+  margin-bottom: 7%;
+  display: block;
+}
+
+#cesta-list .card{
+  padding-left: 12%;
+  margin-right: 2%;
+}
 /* Modal */
 .modal {
   display: none; 
